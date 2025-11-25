@@ -40,38 +40,122 @@ If you encounter any abuse or misuse of this software, please report it to:
 
 > Thank you for being a part of the open-source community! 🌟
 
-# Coff PHP Framework
+# Coff PHP Framework (v2.0)
 
-Welcome to Coff PHP Framework! A modern PHP framework designed for speed and efficiency.
+Coff PHP Framework is a modern, lightweight, and **AI-friendly** PHP framework designed for speed, efficiency, and predictability. 
 
-## Features
+With version 2.0, the framework has been re-architected to support **microservices**, strict typing, and modern dependency injection patterns while maintaining its simplicity.
 
-- **Lightweight**  
-  Coff is designed to be lightweight and easy to use, focusing on essential features for fast development.
+## 🚀 Features
 
-- **Flexible**  
-  Highly extendable and customizable to fit your project's needs with minimal effort.
+- **AI-Friendly Architecture**: Strict typing, predictable interfaces, and PSR standards make it easy for AI assistants to understand and generate code.
+- **Modern Core**: A completely refactored kernel (`src/Core`) with a powerful **Dependency Injection Container**.
+- **Microservice Ready**: Built-in support for JSON APIs, Stateless Authentication (JWT-ready), and standardized API Responses.
+- **Dual Routing System**: Supports both modern Route definitions (`routes/web.php`, `routes/api.php`) and legacy folder-based routing (`?path=Handler`).
+- **Robust Logging**: Integrated **Monolog** support for professional-grade logging.
+- **Lightweight**: Minimal overhead compared to Laravel or Symfony.
 
-- **Easy to Learn**  
-  Designed with simplicity in mind, making it easy to get started even if you're new to PHP frameworks.
+## 📂 Project Structure
 
-## Comparison
+The framework follows a clean separation of concerns:
+
+```
+coff-framework/
+├── app/                # Application Logic (Your Code)
+│   ├── Controllers/    # Web Controllers
+│   ├── Models/         # Database Models
+│   └── Services/       # Business Logic
+├── config/             # Configuration Files
+├── public/             # Web Entry Point (index.php)
+├── routes/             # Route Definitions
+│   ├── api.php         # API Routes (Microservices)
+│   └── web.php         # Web Routes
+├── src/                # Framework Core (Do Not Edit)
+│   ├── Auth/           # Authentication Guards
+│   ├── Core/           # Container, Application, Logger
+│   └── Http/           # Kernel, Router, Request, Response
+└── vendor/             # Composer Dependencies
+```
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- PHP 7.4 or higher
+- Composer
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ubden/coff-framework.git
+   ```
+2. Install dependencies:
+   ```bash
+   composer install
+   ```
+3. Set up your environment:
+   Copy `.env.example` to `.env` (if available) and configure your database.
+
+## 📖 Usage
+
+### Routing
+Define your routes in `routes/web.php` or `routes/api.php`.
+
+```php
+// routes/api.php
+$router->get('/users', 'App\Controllers\UserController@index');
+
+// routes/web.php
+$router->get('/', function() {
+    echo "Welcome to Coff Framework!";
+});
+```
+
+### Dependency Injection
+The new Container supports auto-wiring. You can type-hint dependencies in your controller constructors.
+
+```php
+use Coff\Framework\Core\Logger;
+
+class UserController {
+    protected $logger;
+
+    public function __construct(Logger $logger) {
+        $this->logger = $logger;
+    }
+
+    public function index() {
+        $this->logger->info('User list accessed');
+        // ...
+    }
+}
+```
+
+### API Responses
+Use the `ApiResponse` helper for consistent JSON output.
+
+```php
+use Coff\Framework\Http\ApiResponse;
+
+public function index() {
+    return ApiResponse::success(['id' => 1, 'name' => 'John Doe']);
+}
+```
+
+### Legacy Support
+The framework maintains backward compatibility with the old `?path=Page` routing style, ensuring your existing modules continue to work while you migrate to the new structure.
+
+## 🤝 Comparison
 
 ### Coff vs Laravel
-
-- **Performance:** Coff is lightweight and optimized for performance, while Laravel is feature-rich but heavier.
-- **Learning Curve:** Coff has a simpler learning curve compared to Laravel's extensive features and complexity.
+- **Performance:** Coff is significantly lighter and faster for small-to-medium projects and microservices.
+- **Simplicity:** No complex facades or magic methods; just pure, understandable PHP.
 
 ### Coff vs Symfony
+- **Flexibility:** Coff provides a minimal structure, giving you total freedom over your architecture.
+- **Learning Curve:** You can understand the entire core code in an afternoon.
 
-- **Flexibility:** Coff offers a more flexible and minimalistic approach, while Symfony provides a more structured and feature-complete framework.
-- **Community:** Symfony has a larger and more established community, while Coff provides a streamlined approach with less overhead.
-
-### Folder Structure
-
-![Ödeme Paneli Ekran Görüntüsü](https://coff.dev/yapi.png)
-
-## Contact Us
+## 📞 Contact Us
 
 Have questions or need support? Feel free to reach out!
 
@@ -79,4 +163,3 @@ Have questions or need support? Feel free to reach out!
 - **Email:** info@coff.dev
 
 For more details, visit our [website](https://coff.dev) or open an issue on our GitHub page.
-

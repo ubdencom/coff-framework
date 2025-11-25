@@ -15,12 +15,15 @@
   "autoload": {
     "psr-4": {
       "App\\": "app/",
-      "App\\Middleware\\": "config/middleware/"
-    }
+      "Coff\\Framework\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
   },
   "scripts": {
     "post-install-cmd": [
-         ],
+    ],
     "post-update-cmd": [
     ]
   },
